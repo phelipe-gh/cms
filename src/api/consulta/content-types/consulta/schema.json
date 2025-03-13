@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "consultas",
+  "info": {
+    "singularName": "consulta",
+    "pluralName": "consultas",
+    "displayName": "Consulta",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "Paciente": {
+      "type": "string",
+      "required": true
+    },
+    "DataNascimento": {
+      "type": "date",
+      "required": true
+    },
+    "Relatorio": {
+      "type": "richtext"
+    },
+    "Patologia": {
+      "type": "string"
+    },
+    "DataConsulta": {
+      "required": true,
+      "type": "date"
+    },
+    "AnexosLaudos": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "ValorCosulta": {
+      "type": "decimal"
+    },
+    "pacienteConsultado": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::paciente.paciente"
+    }
+  }
+}
