@@ -1,28 +1,28 @@
 {
   "kind": "collectionType",
-  "collectionName": "consultas",
+  "collectionName": "produtos",
   "info": {
-    "singularName": "consulta",
-    "pluralName": "consultas",
-    "displayName": "Consultas"
+    "singularName": "produto",
+    "pluralName": "produtos",
+    "displayName": "Produtos"
   },
   "options": {
     "draftAndPublish": false
   },
   "attributes": {
-    "paciente": {
+    "descricao": {
       "type": "string",
       "required": true
-    },
-    "nascimento": {
-      "type": "date"
     },
     "valor": {
       "type": "integer",
       "required": true
     },
-    "condicao": {
-      "type": "richtext"
+    "dataCompra": {
+      "type": "date"
+    },
+    "detalhes": {
+      "type": "blocks"
     }
   }
 }

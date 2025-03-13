@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "clientes",
+  "info": {
+    "singularName": "cliente",
+    "pluralName": "clientes",
+    "displayName": "Clientes"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "dataNascimento": {
+      "required": true,
+      "type": "date"
+    },
+    "endereco": {
+      "type": "string"
+    },
+    "contato": {
+      "type": "biginteger"
+    }
+  }
+}

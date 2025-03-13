@@ -369,11 +369,41 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
+  collectionName: 'clientes';
+  info: {
+    displayName: 'Clientes';
+    pluralName: 'clientes';
+    singularName: 'cliente';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    contato: Schema.Attribute.BigInteger;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dataNascimento: Schema.Attribute.Date & Schema.Attribute.Required;
+    endereco: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cliente.cliente'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiConsultaConsulta extends Struct.CollectionTypeSchema {
   collectionName: 'consultas';
   info: {
-    description: '';
-    displayName: 'Consulta';
+    displayName: 'Consultas';
     pluralName: 'consultas';
     singularName: 'consulta';
   };
@@ -381,69 +411,54 @@ export interface ApiConsultaConsulta extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    AnexosLaudos: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    condicao: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    DataConsulta: Schema.Attribute.Date & Schema.Attribute.Required;
-    DataNascimento: Schema.Attribute.Date & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::consulta.consulta'
     > &
       Schema.Attribute.Private;
-    Paciente: Schema.Attribute.String & Schema.Attribute.Required;
-    pacienteConsultado: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::paciente.paciente'
-    >;
-    Patologia: Schema.Attribute.String;
+    nascimento: Schema.Attribute.Date;
+    paciente: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    Relatorio: Schema.Attribute.RichText;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    ValorCosulta: Schema.Attribute.Decimal;
+    valor: Schema.Attribute.Integer & Schema.Attribute.Required;
   };
 }
 
-export interface ApiPacientePaciente extends Struct.CollectionTypeSchema {
-  collectionName: 'pacientes';
+export interface ApiProdutoProduto extends Struct.CollectionTypeSchema {
+  collectionName: 'produtos';
   info: {
-    displayName: 'pacientes';
-    pluralName: 'pacientes';
-    singularName: 'paciente';
+    displayName: 'Produtos';
+    pluralName: 'produtos';
+    singularName: 'produto';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    bairro: Schema.Attribute.String;
-    cidade: Schema.Attribute.String;
-    contato: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    estado: Schema.Attribute.String;
+    dataCompra: Schema.Attribute.Date;
+    descricao: Schema.Attribute.String & Schema.Attribute.Required;
+    detalhes: Schema.Attribute.Blocks;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::paciente.paciente'
+      'api::produto.produto'
     > &
       Schema.Attribute.Private;
-    nome: Schema.Attribute.String & Schema.Attribute.Required;
-    numero: Schema.Attribute.Integer;
-    patologia: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    rua: Schema.Attribute.String;
-    situacao: Schema.Attribute.Blocks;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    valor: Schema.Attribute.Integer & Schema.Attribute.Required;
   };
 }
 
@@ -956,8 +971,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::cliente.cliente': ApiClienteCliente;
       'api::consulta.consulta': ApiConsultaConsulta;
-      'api::paciente.paciente': ApiPacientePaciente;
+      'api::produto.produto': ApiProdutoProduto;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
